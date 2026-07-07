@@ -1,3 +1,4 @@
+import { MessageCircle, ListChecks, LayoutTemplate, Code2, LifeBuoy } from 'lucide-react';
 import Reveal from '../ui/Reveal';
 import SectionHeading from '../ui/SectionHeading';
 import LineButton from '../ui/LineButton';
@@ -5,22 +6,27 @@ import TrustNote from '../ui/TrustNote';
 
 const STEPS = [
   {
+    icon: MessageCircle,
     title: '無料相談',
     body: '今の業務の悩みをお聞きします。「何を作るべきか分からない」という段階でも問題ありません。',
   },
   {
+    icon: ListChecks,
     title: '業務整理',
     body: '紙、Excel、LINE、電話など、現在の業務の流れを整理します。',
   },
   {
+    icon: LayoutTemplate,
     title: '設計・ご提案',
     body: '必要な機能、画面構成、運用方法、費用感をご提案します。',
   },
   {
+    icon: Code2,
     title: '開発・テスト',
     body: 'Webアプリを開発し、実際の運用に合うか確認します。',
   },
   {
+    icon: LifeBuoy,
     title: '導入・運用支援',
     body: '納品後も、使い方や改善点を確認しながらサポートします。',
   },
@@ -56,7 +62,10 @@ export default function Flow() {
                 <span className="text-sm font-bold leading-tight tabular-nums">{i + 1}</span>
               </span>
               <div className="pt-1">
-                <h3 className="text-base font-bold text-slate-900 sm:text-lg">{s.title}</h3>
+                <h3 className="flex items-center gap-2 text-base font-bold text-slate-900 sm:text-lg">
+                  <s.icon className="h-5 w-5 shrink-0 text-brand-600" aria-hidden="true" />
+                  {s.title}
+                </h3>
                 <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{s.body}</p>
               </div>
             </Reveal>

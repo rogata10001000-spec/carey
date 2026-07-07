@@ -13,6 +13,7 @@ import Pricing from './components/sections/Pricing';
 import FAQ from './components/sections/FAQ';
 import FinalCTA from './components/sections/FinalCTA';
 import Company from './components/sections/Company';
+import Privacy from './components/sections/Privacy';
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
         <FAQ />
         <FinalCTA />
         <Company />
+        <Privacy />
       </main>
       <Footer />
       <MobileCTA />

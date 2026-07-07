@@ -1,6 +1,8 @@
+import { Mail } from 'lucide-react';
 import Reveal from '../ui/Reveal';
 import LineButton from '../ui/LineButton';
 import TrustNote from '../ui/TrustNote';
+import { IMAGES, SITE } from '../../config/site';
 
 export default function FinalCTA() {
   return (
@@ -36,8 +38,17 @@ export default function FinalCTA() {
           </p>
         </Reveal>
         <Reveal delay={300}>
-          <div className="mt-9">
+          <div className="mt-9 flex flex-col items-center gap-5">
             <LineButton className="px-10 py-5 text-lg" />
+            {/* LINEのQRコード画像（IMAGES.lineQr）を設定すると表示される */}
+            {IMAGES.lineQr && (
+              <div className="rounded-2xl bg-white p-3 shadow-card">
+                <img src={IMAGES.lineQr} alt="LINE友だち追加QRコード" className="h-28 w-28" />
+                <p className="mt-1.5 text-center text-[11px] font-medium text-slate-500">
+                  QRコードから友だち追加
+                </p>
+              </div>
+            )}
           </div>
         </Reveal>
         <Reveal delay={380}>
@@ -46,6 +57,18 @@ export default function FinalCTA() {
             className="mt-6"
             items={['相談・見積り無料', '無理な営業は行いません', '「この作業もできる？」だけでもOK']}
           />
+        </Reveal>
+        <Reveal delay={440}>
+          <p className="mt-7 text-xs text-brand-200 sm:text-sm">
+            LINEをお使いでない方は、メールでもご相談いただけます：
+            <a
+              href={`mailto:${SITE.email}`}
+              className="ml-1 inline-flex items-center gap-1 whitespace-nowrap font-bold text-white underline decoration-brand-400 underline-offset-4 transition-colors hover:decoration-white"
+            >
+              <Mail className="h-3.5 w-3.5" aria-hidden="true" />
+              {SITE.email}
+            </a>
+          </p>
         </Reveal>
       </div>
     </section>

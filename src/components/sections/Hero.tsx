@@ -4,7 +4,7 @@ import LineButton from '../ui/LineButton';
 import TrustNote from '../ui/TrustNote';
 import { SITE } from '../../config/site';
 
-const FEATURE_CHIPS = ['必要な機能だけ', '業務に合わせて設計', '導入後も伴走'];
+const FEATURE_CHIPS = ['必要な機能だけ', '業務に合わせて設計', '導入後も伴走', '代表が直接対応'];
 
 const RESERVATIONS = [
   { name: '田中様', time: '10:00', status: '確定' },

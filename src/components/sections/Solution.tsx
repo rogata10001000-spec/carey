@@ -1,4 +1,16 @@
-import { PiggyBank, Puzzle, Sprout } from 'lucide-react';
+import {
+  ArrowDown,
+  ArrowRight,
+  CalendarCheck,
+  Check,
+  FileSpreadsheet,
+  FileText,
+  MessageCircle,
+  Phone,
+  PiggyBank,
+  Puzzle,
+  Sprout,
+} from 'lucide-react';
 import Reveal from '../ui/Reveal';
 import SectionHeading from '../ui/SectionHeading';
 
@@ -19,6 +31,76 @@ const VALUES = [
     body: '作って終わりではなく、実際に使いながら改善。運用に合わせて使いやすく育てていきます。',
   },
 ];
+
+const SCATTERED_TOOLS = [
+  { icon: FileText, label: '紙の台帳' },
+  { icon: FileSpreadsheet, label: 'Excel' },
+  { icon: MessageCircle, label: 'LINE' },
+  { icon: Phone, label: '電話・メモ' },
+];
+
+const APP_FEATURES = ['予約も申請も1つの画面に', '入力すれば自動で集計', 'スタッフ全員で共有できる'];
+
+/** 図解: バラバラの管理 → ひとつのWebアプリ */
+function TransformDiagram() {
+  return (
+    <div className="mx-auto mt-14 max-w-4xl rounded-3xl border border-slate-200 bg-slate-50/70 p-6 sm:p-10">
+      <div className="grid items-center gap-6 md:grid-cols-[1fr_auto_1.1fr]">
+        {/* Before: バラバラの管理 */}
+        <div>
+          <p className="text-center text-sm font-bold text-slate-500">いまは、バラバラの管理</p>
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            {SCATTERED_TOOLS.map((tool, i) => (
+              <div
+                key={tool.label}
+                className={`flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white px-3.5 py-3 shadow-soft ${
+                  i % 2 === 1 ? 'translate-y-1.5' : ''
+                }`}
+              >
+                <tool.icon className="h-5 w-5 shrink-0 text-slate-400" aria-hidden="true" />
+                <span className="whitespace-nowrap text-sm font-medium text-slate-600">{tool.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 矢印 */}
+        <div className="flex flex-col items-center gap-1.5 text-brand-600" aria-hidden="true">
+          <span className="whitespace-nowrap rounded-full bg-accent-200 px-3.5 py-1 text-xs font-bold text-slate-800">
+            CAREYがまとめて設計
+          </span>
+          <ArrowDown className="h-7 w-7 md:hidden" />
+          <ArrowRight className="hidden h-7 w-7 md:block" />
+        </div>
+
+        {/* After: ひとつのWebアプリ */}
+        <div>
+          <p className="text-center text-sm font-bold text-brand-700">ひとつのWebアプリに</p>
+          <div className="mt-4 overflow-hidden rounded-xl border border-brand-100 bg-white shadow-card">
+            <div className="flex items-center gap-1.5 border-b border-slate-100 bg-brand-50/60 px-4 py-2.5">
+              <span className="h-2 w-2 rounded-full bg-brand-200" aria-hidden="true" />
+              <span className="h-2 w-2 rounded-full bg-brand-200" aria-hidden="true" />
+              <span className="ml-2 flex items-center gap-1.5 text-xs font-bold text-brand-800">
+                <CalendarCheck className="h-3.5 w-3.5" aria-hidden="true" />
+                あなたの事業専用アプリ
+              </span>
+            </div>
+            <ul className="space-y-2 p-4">
+              {APP_FEATURES.map((f) => (
+                <li key={f} className="flex items-center gap-2 text-sm text-slate-700">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-line-500/10">
+                    <Check className="h-3 w-3 text-line-600" aria-hidden="true" />
+                  </span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Solution() {
   return (
@@ -41,6 +123,10 @@ export default function Solution() {
             </>
           }
         />
+
+        <Reveal delay={120}>
+          <TransformDiagram />
+        </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
           {VALUES.map((v, i) => (

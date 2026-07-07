@@ -29,7 +29,20 @@ export const SITE = {
   area: '熊本県を中心に、オンラインで全国対応',
   business:
     'Webアプリ開発／スプレッドシート自動化／公式LINE連携／業務管理システム構築／データ集計・可視化／業務改善の相談',
-} as const;
+};
+
+/**
+ * 差し替え用の画像スロット。
+ * public/images/ に画像を置いてパスを設定すると、該当箇所に自動で表示される。
+ * null のあいだは代替デザイン（アイコン表示）になり、未設定でも見た目は破綻しない。
+ */
+export const IMAGES = {
+  /** TODO(仮): 代表近影（例: '/images/representative.jpg'）。会社概要の代表メッセージに表示 */
+  representativePhoto: null as string | null,
+
+  /** TODO(仮): LINE友だち追加のQRコード（例: '/images/line-qr.png'）。最終CTAに表示 */
+  lineQr: null as string | null,
+};
 
 /** ページ内アンカーの一覧（ヘッダー・フッターのナビで共用） */
 export const NAV_ITEMS = [
