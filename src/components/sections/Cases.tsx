@@ -1,89 +1,68 @@
-import { Factory, Users, Calendar } from 'lucide-react';
-import SectionTitle from '../ui/SectionTitle';
+import Reveal from '../ui/Reveal';
+import SectionHeading from '../ui/SectionHeading';
 
-const cases = [
+const CASES = [
   {
-    icon: Factory,
     industry: '食品製造業',
-    challenge: '原材料の価格変動が頻繁で、原価計算に毎回時間がかかっていた',
-    solution: '価格変動に応じた原価計算を自動化するシステムを構築',
-    effect: '計算にかかる時間が大幅に短縮、価格改定への対応もスムーズに',
-    metrics: ['作業時間 80%削減', '計算精度 向上'],
+    problem: '原価計算や材料費の集計に時間がかかっていた。',
+    solution: '商品ごとの材料費、数量、原価を入力すると、自動で原価計算できる仕組みを構築。',
+    effect: '計算ミスを減らし、価格設定や利益確認がしやすくなった。',
   },
   {
-    icon: Users,
     industry: '人材派遣業',
-    challenge: '登録スタッフの情報管理、案件とのマッチングが煩雑だった',
-    solution: '登録スタッフ管理・案件管理システムを構築',
-    effect: 'スタッフ情報の一元管理、案件マッチングの効率化を実現',
-    metrics: ['マッチング 3倍速', '管理工数 60%削減'],
+    problem: 'スタッフ情報、勤務状況、案件情報の管理が分散していた。',
+    solution: 'スタッフ管理、案件管理、稼働状況を一元管理できるシステムを構築。',
+    effect: '確認作業が減り、案件ごとの対応状況が見えるようになった。',
   },
   {
-    icon: Calendar,
-    industry: '採用/人事',
-    challenge: '会社説明会・面接の日程調整に手間がかかっていた',
-    solution: 'LINE連携×Googleカレンダーで日程調整を自動化',
-    effect: '日程調整の手作業がなくなり、候補者対応がスピードアップ',
-    metrics: ['調整時間 90%削減', '対応速度 即時化'],
+    industry: '予約受付業務',
+    problem: '電話やLINEで予約を受け、手作業で管理していた。',
+    solution: '予約フォーム、管理画面、通知機能を組み合わせた予約管理アプリを構築。',
+    effect: '予約確認の手間と対応漏れを削減した。',
   },
 ];
 
+const FIELD_LABELS = [
+  { key: 'problem', label: '課題' },
+  { key: 'solution', label: '解決' },
+] as const;
+
 export default function Cases() {
   return (
-    <section id="cases" className="py-16 sm:py-20 md:py-32 bg-white">
-      <div className="container-wide">
-        <SectionTitle
-          label="CASES"
-          title="導入事例"
-          subtitle="同じような課題を解決してきた実績があります"
+    <section id="cases" className="bg-white py-16 sm:py-24">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <SectionHeading
+          eyebrow="CASE"
+          title={
+            <>
+              業種に合わせて、
+              <br className="sm:hidden" />
+              さまざまな業務を仕組み化できます。
+            </>
+          }
         />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {cases.map((caseItem, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-3xl border border-charcoal-200 shadow-soft overflow-hidden transition-shadow hover:shadow-card-hover flex flex-col"
-            >
-              <div className="p-6 md:p-7 flex-1">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center">
-                    <caseItem.icon className="w-5 h-5 text-teal-600" />
-                  </div>
-                  <span className="text-sm font-medium text-teal-600">
-                    {caseItem.industry}
-                  </span>
-                </div>
-
-                <div className="space-y-5">
-                  <div>
-                    <p className="text-xs font-medium text-charcoal-400 mb-1.5">課題</p>
-                    <p className="text-charcoal-700 text-sm leading-relaxed">
-                      {caseItem.challenge}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="text-xs font-medium text-charcoal-400 mb-1.5">実施内容</p>
-                    <p className="text-charcoal-700 text-sm leading-relaxed">
-                      {caseItem.solution}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-charcoal-50 px-6 md:px-7 py-5 border-t border-charcoal-200">
-                <p className="text-sm text-charcoal-700 leading-relaxed mb-3">
-                  {caseItem.effect}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {caseItem.metrics.map((metric, idx) => (
-                    <span key={idx} className="text-xs font-semibold text-teal-700 bg-teal-100 px-3 py-1 rounded-full">
-                      {metric}
-                    </span>
+        <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+          {CASES.map((c, i) => (
+            <Reveal key={c.industry} delay={i * 120}>
+              <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-card">
+                <span className="self-start whitespace-nowrap rounded-full bg-brand-700 px-4 py-1 text-xs font-bold text-white">
+                  {c.industry}
+                </span>
+                <dl className="mt-5 flex flex-1 flex-col gap-4">
+                  {FIELD_LABELS.map((f) => (
+                    <div key={f.key}>
+                      <dt className="text-xs font-bold tracking-wider text-slate-400">{f.label}</dt>
+                      <dd className="mt-1 text-sm leading-relaxed text-slate-600">{c[f.key]}</dd>
+                    </div>
                   ))}
-                </div>
+                  <div className="mt-auto rounded-xl bg-accent-100/70 p-4">
+                    <dt className="text-xs font-bold tracking-wider text-amber-700">効果</dt>
+                    <dd className="mt-1 text-sm font-bold leading-relaxed text-slate-800">{c.effect}</dd>
+                  </div>
+                </dl>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

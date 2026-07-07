@@ -4,85 +4,43 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: {
-          50: '#f0f4f8',
-          100: '#d9e2ec',
-          200: '#bcccdc',
-          300: '#9fb3c8',
-          400: '#829ab1',
-          500: '#627d98',
-          600: '#486581',
-          700: '#334e68',
-          800: '#243b53',
-          900: '#1e3a5f',
-          950: '#102a43',
+        // メインカラー: 深めのブルー（信頼・誠実・安定感）
+        brand: {
+          50: '#eef4ff',
+          100: '#dce8fd',
+          200: '#c1d6fc',
+          300: '#96bbf9',
+          400: '#6495f4',
+          500: '#3f6fee',
+          600: '#2a50e2',
+          700: '#213dd0',
+          800: '#2134a9',
+          900: '#203085',
+          950: '#182051',
         },
-        teal: {
-          50: '#e6f7f5',
-          100: '#b3e8e2',
-          200: '#80d9cf',
-          300: '#4dcabc',
-          400: '#33bfae',
-          500: '#2d8a7b',
-          600: '#267a6c',
-          700: '#1f6a5d',
-          800: '#185a4e',
-          900: '#114a3f',
+        // アクセントカラー: 黄色（視線誘導・前向きさ）
+        accent: {
+          100: '#fef9c3',
+          200: '#fef08a',
+          300: '#fde047',
+          400: '#facc15',
+          500: '#eab308',
         },
-        charcoal: {
-          50: '#f9fafb',
-          100: '#f3f4f6',
-          200: '#e5e7eb',
-          300: '#d1d5db',
-          400: '#9ca3af',
-          500: '#6b7280',
-          600: '#4b5563',
-          700: '#374151',
-          800: '#1f2937',
-          900: '#111827',
+        // LINE導線カラー（LINE公式のブランドグリーン）
+        line: {
+          500: '#06c755',
+          600: '#05b34c',
+          700: '#049e43',
         },
       },
       fontFamily: {
-        sans: [
-          '"Noto Sans JP"',
-          'Inter',
-          'system-ui',
-          '-apple-system',
-          'sans-serif',
-        ],
-      },
-      fontSize: {
-        'hero': ['3.25rem', { lineHeight: '1.2', fontWeight: '700' }],
-        'hero-sp': ['2rem', { lineHeight: '1.35', fontWeight: '700' }],
-        'section': ['2.25rem', { lineHeight: '1.3', fontWeight: '700' }],
-        'section-sp': ['1.625rem', { lineHeight: '1.4', fontWeight: '700' }],
+        sans: ['"Noto Sans JP"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        'soft': '0 1px 4px rgba(0, 0, 0, 0.06)',
-        'card': '0 2px 8px rgba(0, 0, 0, 0.08)',
-        'card-hover': '0 8px 24px rgba(0, 0, 0, 0.12)',
-      },
-      borderRadius: {
-        '3xl': '24px',
-      },
-      animation: {
-        'fade-in': 'fadeIn 0.6s ease-out',
-        'fade-in-up': 'fadeInUp 0.6s ease-out',
-        'scale-in': 'scaleIn 0.5s ease-out',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        scaleIn: {
-          '0%': { opacity: '0', transform: 'scale(0.95)' },
-          '100%': { opacity: '1', transform: 'scale(1)' },
-        },
+        soft: '0 1px 3px rgba(16, 34, 81, 0.06)',
+        card: '0 2px 12px rgba(16, 34, 81, 0.08)',
+        lift: '0 10px 28px rgba(16, 34, 81, 0.14)',
+        cta: '0 6px 20px rgba(6, 199, 85, 0.35)',
       },
     },
   },

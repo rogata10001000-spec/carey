@@ -1,90 +1,112 @@
-import { useState } from 'react';
-import { Menu, X, MessageCircle } from 'lucide-react';
-
-const navItems = [
-  { label: 'トップ', href: '#' },
-  { label: 'サービス', href: '#services' },
-  { label: '進め方', href: '#process' },
-  { label: '事例', href: '#cases' },
-  { label: '料金', href: '#pricing' },
-  { label: 'CAREYについて', href: '#about' },
-];
-
-const LINE_URL = 'https://line.me/R/ti/p/YOUR_LINE_ID';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { Menu, X } from 'lucide-react';
+import { NAV_ITEMS } from '../../config/site';
+import LineButton from '../ui/LineButton';
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // ドロワー表示中は背面のスクロールを止める
+  useEffect(() => {
+    if (!drawerOpen) return;
+    const original = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [drawerOpen]);
+
+  // Escで閉じる
+  useEffect(() => {
+    if (!drawerOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setDrawerOpen(false);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [drawerOpen]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-charcoal-200/60">
-      <div className="container-wide">
-        <div className="flex items-center justify-between h-16 md:h-18">
-          <a href="#" className="text-xl md:text-2xl font-bold text-navy-900 tracking-wide">
-            CAREY
-          </a>
+    <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/95 backdrop-blur-sm">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+        <a href="#top" className="flex items-baseline gap-2.5">
+          <span className="text-xl font-extrabold tracking-wide text-brand-800">CAREY</span>
+          <span className="hidden whitespace-nowrap text-[11px] font-medium text-slate-500 sm:inline">
+            事業専用のWebアプリ開発
+          </span>
+        </a>
 
-          <nav className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-sm font-medium text-charcoal-600 hover:text-teal-600 transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-3">
+        <nav className="hidden items-center gap-6 lg:flex" aria-label="メインナビゲーション">
+          {NAV_ITEMS.map((item) => (
             <a
-              href={LINE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-2 px-5 py-2 bg-teal-600 text-white text-sm font-semibold rounded-full hover:bg-teal-700 transition-colors"
+              key={item.href}
+              href={item.href}
+              className="whitespace-nowrap text-sm font-medium text-slate-600 transition-colors hover:text-brand-700"
             >
-              <MessageCircle className="w-4 h-4" />
-              <span>LINEで相談</span>
+              {item.label}
             </a>
+          ))}
+        </nav>
 
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 text-charcoal-600 hover:text-navy-900 transition-colors"
-              aria-label="メニュー"
-            >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
+        <div className="flex items-center gap-2">
+          <LineButton size="md" label="LINEで無料相談" className="hidden sm:inline-flex" />
+          <button
+            type="button"
+            onClick={() => setDrawerOpen(true)}
+            className="flex h-11 w-11 items-center justify-center rounded-lg text-slate-700 transition-colors hover:bg-slate-100 lg:hidden"
+            aria-label="メニューを開く"
+            aria-expanded={drawerOpen}
+          >
+            <Menu className="h-6 w-6" aria-hidden="true" />
+          </button>
         </div>
       </div>
 
-      {isMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 bg-white z-40 overflow-y-auto overscroll-contain">
-          <nav className="container-wide py-6 sm:py-8 pb-safe" style={{ paddingBottom: `max(24px, env(safe-area-inset-bottom, 24px))` }}>
-            <ul className="space-y-1">
-              {navItems.map((item) => (
-                <li key={item.label}>
+      {drawerOpen &&
+        createPortal(
+          <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="メニュー">
+            <button
+              type="button"
+              className="absolute inset-0 bg-slate-900/50"
+              onClick={() => setDrawerOpen(false)}
+              aria-label="メニューを閉じる"
+            />
+            <div className="absolute inset-y-0 right-0 flex w-72 max-w-[85vw] flex-col bg-white shadow-lift">
+              <div className="flex h-16 items-center justify-between border-b border-slate-100 px-5">
+                <span className="text-lg font-extrabold tracking-wide text-brand-800">CAREY</span>
+                <button
+                  type="button"
+                  onClick={() => setDrawerOpen(false)}
+                  className="flex h-11 w-11 items-center justify-center rounded-lg text-slate-700 transition-colors hover:bg-slate-100"
+                  aria-label="メニューを閉じる"
+                >
+                  <X className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+              <nav className="flex-1 overflow-y-auto overscroll-contain px-3 py-4" aria-label="メニュー">
+                {NAV_ITEMS.map((item) => (
                   <a
+                    key={item.href}
                     href={item.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block py-4 text-lg text-charcoal-700 hover:text-navy-900 border-b border-charcoal-100"
+                    onClick={() => setDrawerOpen(false)}
+                    className="block rounded-lg px-3 py-3 text-[15px] font-medium text-slate-700 transition-colors hover:bg-brand-50 hover:text-brand-700"
                   >
                     {item.label}
                   </a>
-                </li>
-              ))}
-            </ul>
-            <a
-              href={LINE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 sm:mt-8 flex items-center justify-center gap-2 w-full py-4 bg-teal-600 text-white text-lg font-medium rounded-full"
-            >
-              <MessageCircle className="w-5 h-5" />
-              <span>公式LINEで相談する</span>
-            </a>
-          </nav>
-        </div>
-      )}
+                ))}
+              </nav>
+              <div
+                className="border-t border-slate-100 p-5"
+                style={{ paddingBottom: 'calc(1.25rem + env(safe-area-inset-bottom))' }}
+              >
+                <LineButton size="md" className="w-full" />
+                <p className="mt-3 text-center text-xs text-slate-500">相談・見積り無料</p>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
     </header>
   );
 }

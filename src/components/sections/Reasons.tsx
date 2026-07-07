@@ -1,61 +1,48 @@
-import { Zap, Users, RefreshCw } from 'lucide-react';
-import SectionTitle from '../ui/SectionTitle';
+import Reveal from '../ui/Reveal';
+import SectionHeading from '../ui/SectionHeading';
 
-const reasons = [
+const REASONS = [
   {
-    number: '01',
-    icon: Zap,
-    title: 'AIを活用して、早く形にできます',
-    description: '最新のAI技術を開発に取り入れることで、従来よりも短い期間で、現実的な価格でシステムを構築できます。',
+    title: '現場目線で設計する',
+    body: 'いきなり開発するのではなく、まず業務の流れを整理します。現場で本当に使える形を重視します。',
   },
   {
-    number: '02',
-    icon: Users,
-    title: '現場のやり方を理解してから作ります',
-    description: '技術ありきではなく、まず業務の流れをヒアリング。現場で実際に使われる形を目指して設計します。',
+    title: '小さく始められる',
+    body: '最初から大規模なシステムを作る必要はありません。一部の業務から導入し、段階的に拡張できます。',
   },
   {
-    number: '03',
-    icon: RefreshCw,
-    title: '作って終わりではなく、一緒に改善します',
-    description: '納品後も月額サポートで継続的に改善。使いながら見えてきた課題にも対応します。',
+    title: 'AI活用でスピーディーに開発',
+    body: 'Claude CodeやCursor等のAIコーディング支援ツールを活用し、開発スピードを高めています。',
+  },
+  {
+    title: 'ITが苦手でも相談しやすい',
+    body: '専門用語をできるだけ使わず、業務の悩みから一緒に整理します。',
+  },
+  {
+    title: '導入後も伴走',
+    body: '納品後の使い方、改善、機能追加まで相談できます。',
   },
 ];
 
 export default function Reasons() {
   return (
-    <section className="py-16 sm:py-20 md:py-32 bg-charcoal-50">
-      <div className="container-wide">
-        <SectionTitle
-          label="WHY CAREY"
-          title="CAREYが選ばれる理由"
-          subtitle="「早い・分かりやすい・寄り添う」の3つを大切にしています"
-        />
+    <section id="reasons" className="bg-slate-50 py-16 sm:py-24">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <SectionHeading eyebrow="REASON" title="CAREYが選ばれる理由" />
 
-        <div className="space-y-10 sm:space-y-12 md:space-y-16 max-w-4xl mx-auto">
-          {reasons.map((reason, index) => (
-            <div
-              key={index}
-              className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 md:gap-10"
-            >
-              <div className="flex-shrink-0 flex items-start gap-4 md:gap-5">
-                <span className="text-4xl md:text-5xl font-bold text-teal-200">
-                  {reason.number}
+        <div className="mx-auto mt-12 max-w-3xl space-y-4">
+          {REASONS.map((r, i) => (
+            <Reveal key={r.title} delay={i * 80}>
+              <div className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft sm:items-center sm:gap-6 sm:p-6">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-700 font-sans text-sm font-bold tabular-nums text-white">
+                  {String(i + 1).padStart(2, '0')}
                 </span>
-                <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center mt-1">
-                  <reason.icon className="w-5 h-5 text-teal-600" />
+                <div>
+                  <h3 className="text-base font-bold text-slate-900">{r.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{r.body}</p>
                 </div>
               </div>
-
-              <div className="flex-1">
-                <h3 className="text-xl md:text-2xl font-semibold text-navy-900 mb-3">
-                  {reason.title}
-                </h3>
-                <p className="text-charcoal-500 leading-relaxed text-base md:text-lg">
-                  {reason.description}
-                </p>
-              </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
